@@ -1,0 +1,46 @@
+# =========================
+# Node.js
+# =========================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# =========================
+# Archivos de entorno
+# =========================
+.env
+.env.*.local
+
+# =========================
+# Logs
+# =========================
+logs
+*.log
+*.out
+*.err
+
+# =========================
+# Sistema operativo (macOS)
+# =========================
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# =========================
+# VS Code
+# =========================
+.vscode/
+.history/
+*.code-workspace
+
+# =========================
+# Build / Output
+# =========================
+dist/
+build/
+out/
+coverage/
