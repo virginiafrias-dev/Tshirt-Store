@@ -1,0 +1,88 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model Tshirts {
+  id Int @id @default(autoincrement())
+  title String
+  size  Sizes
+  stock Int
+  price Float
+  colorId Int
+  color Colors @relation(fields: [colorId], references: [id])
+  details Details[]
+}
+
+model Colors {
+  id Int @id @default(autoincrement())
+  name String
+  available Boolean 
+  tshirts Tshirts[]
+}
+model Users {
+  id Int @id @default(autoincrement())
+  fullName String
+  email String @unique
+  password String
+  rol Rol
+  contact_info Contact_Info?
+  orders Orders[]
+}
+model Contact_Info {
+  id Int @id @default(autoincrement())
+  phoneNumber String
+  address String
+  userId Int @unique
+  user Users @relation(fields: [userId], references: [id])
+
+}
+model Orders {
+  id Int @id @default(autoincrement())
+  date DateTime
+  paymentMethod paymentMethods
+  userId Int
+  user Users @relation(fields: [userId], references: [id])
+  details Details[]
+}
+model Details {
+  id Int @id @default(autoincrement())
+  unitPrice Float
+  amount Int
+  orderId Int
+  tshirtId Int
+  order Orders @relation(fields: [orderId], references: [id])
+  tshirt Tshirts @relation(fields: [tshirtId], references: [id])
+}
+
+enum Sizes {
+  XS
+  S
+  M
+  L
+  XL
+  XXL
+  XXXL
+}
+
+enum Rol {
+  ADMIN
+  USER
+}
+enum paymentMethods {
+  CASH
+  CARD
+  TRANSFER
+}

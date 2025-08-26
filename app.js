@@ -1,3 +1,5 @@
+import { prisma } from "./prisma/prisma";
+
 const express = require("express");
 const PORT = 3030;
 const app = express();
